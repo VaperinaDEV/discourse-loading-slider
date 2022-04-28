@@ -8,7 +8,7 @@ import { set } from "@ember/object";
 const PLUGIN_ID = 'discourse-loading-slider';
 
 export default apiInitializer("0.8", (api) => {
-  delete Ember.TEMPLATES["loading"];
+
   const { isAppWebview } = api.container.lookup("capabilities:main");
 
   api.modifyClass("route:application", {
