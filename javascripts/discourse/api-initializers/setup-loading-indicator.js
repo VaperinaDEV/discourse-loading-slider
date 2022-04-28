@@ -14,8 +14,8 @@ export default apiInitializer("0.8", (api) => {
     return;
   }
 
-  if (settings.show_on === "discovery") {
-    return currentRouteName.indexOf("discovery") > -1;
+  if (url === "/" || url === homeRoute ){ 
+    return true;
   }
   
   
