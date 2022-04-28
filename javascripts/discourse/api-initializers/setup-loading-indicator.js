@@ -14,8 +14,8 @@ export default apiInitializer("0.8", (api) => {
     return;
   }
 
-  if (url === "/" || url === homeRoute ){ 
-    return true;
+  if (url === "/" || url === homeRoute ) { 
+    return;
   }
   
   
