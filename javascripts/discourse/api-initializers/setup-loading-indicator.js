@@ -14,28 +14,6 @@ export default apiInitializer("0.8", (api) => {
     return;
   }
   
-  const path = window.location.pathname;
-  
-  let showOnHomepage;
-  if (settings.display_on_homepage) {
-    showOnHomepage = path === "/";
-  }
-      
-  let urlMatch;    
-  if (settings.url_must_contain.length) {    
-    const allowedPaths = settings.url_must_contain.split("|");
-    urlMatch = allowedPaths.some((allowedPath) => {
-      if (allowedPath.slice(-1) === "*") {
-        return path.indexOf(allowedPath.slice(0, -1)) === 0;
-      }
-      return path === allowedPath;
-    });
-  }
-  
-  if (showOnHomepage || urlMatch) {
-    return true;
-  }
-  
   delete Ember.TEMPLATES["loading"];
   const { isAppWebview } = api.container.lookup("capabilities:main");
 
