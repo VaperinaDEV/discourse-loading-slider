@@ -23,7 +23,7 @@ export default apiInitializer("0.8", (api) => {
         return true;
       }
     });
-  }
+  };
     
   
   
