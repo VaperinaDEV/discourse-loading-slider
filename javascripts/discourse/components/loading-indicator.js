@@ -3,6 +3,8 @@ import { inject as service } from "@ember/service";
 import { equal } from "@ember/object/computed";
 import { cancel, next } from "@ember/runloop";
 import discourseComputed from "discourse-common/utils/decorators";
+import { computed } from "@ember/object";
+import { defaultHomepage } from "discourse/lib/utilities";
 
 export default Component.extend({
   loadingIndicator: service(),
@@ -16,6 +18,21 @@ export default Component.extend({
   loading: equal("state", "loading"),
   stillLoading: equal("state", "still-loading"),
   done: equal("state", "done"),
+  
+  @discourseComputed("router.currentRouteName", "router.currentURL")
+  showHere(currentRouteName, currentURL) {
+    if (settings.show_on === "all") {
+      return true;
+    }
+
+    if (settings.show_on === "discovery") {
+      return currentRouteName.indexOf("discovery") > -1;
+    }
+
+    if (settings.show_on === "homepage") {
+      return currentRouteName == `discovery.${defaultHomepage()}`;
+    }
+  },
 
   stateChanged(loading) {
     if (this._deferredStateChange) {
