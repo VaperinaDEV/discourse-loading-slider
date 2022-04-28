@@ -1,8 +1,11 @@
-show_on:
-  default: discovery
-  type: enum
-  choices:
-    - discovery
-    - homepage
-    - all
-  description: discovery refers to topic list pages
+display_on_homepage:
+  type: bool
+  default: true
+  description:
+    en: 'Display the banner on the homepage'
+url_must_contain:
+  type: list
+  list_type: simple
+  default: /latest|/categories|/new|/unread|/top*|/tag/*|/tags/*|/t/*
+  description:
+    en: 'Enter paths that should display the banner. Add <code>*</code> to the end of the path as a wildcard'
