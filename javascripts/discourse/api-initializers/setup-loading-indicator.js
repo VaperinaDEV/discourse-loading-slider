@@ -11,11 +11,12 @@ import { defaultHomepage } from "discourse/lib/utilities";
 const PLUGIN_ID = 'discourse-loading-slider';
 
 export default apiInitializer("0.8", (api) => {
-  router: service(),
   
   if (Site.currentProp("mobileView")) {
     return;
   }
+  
+  router: service(),
   
   @discourseComputed("router.currentRouteName", "router.currentURL")
   showHere(currentRouteName, currentURL) {
