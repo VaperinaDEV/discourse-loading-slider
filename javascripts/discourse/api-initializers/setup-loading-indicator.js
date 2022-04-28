@@ -14,6 +14,8 @@ export default apiInitializer("0.8", (api) => {
     return;
   }
   
+  const path = window.location.pathname;
+  
   let showOnHomepage;
   if (settings.display_on_homepage) {
     showOnHomepage = path === "/";
