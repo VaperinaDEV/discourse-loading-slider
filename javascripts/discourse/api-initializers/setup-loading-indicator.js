@@ -5,7 +5,6 @@ import { observes } from "discourse-common/utils/decorators";
 import DiscourseURL from "discourse/lib/url";
 import { set } from "@ember/object";
 import Site from "discourse/models/site";
-import { inject as service } from "@ember/service";
 import discourseComputed from "discourse-common/utils/decorators";
 import { defaultHomepage } from "discourse/lib/utilities";
 
