@@ -8,7 +8,7 @@ import { set } from "@ember/object";
 const PLUGIN_ID = 'discourse-loading-slider';
 
 export default apiInitializer("0.8", (api) => {
-
+  delete Ember.TEMPLATES["loading"];
   const { isAppWebview } = api.container.lookup("capabilities:main");
 
   api.modifyClass("route:application", {
@@ -31,24 +31,7 @@ export default apiInitializer("0.8", (api) => {
     },
   });
 
-  api.modifyClass("component:scrolling-post-stream", {
-    pluginId: PLUGIN_ID,
 
-    // Core currently relies on the intermediate loading screen to reload the scrolling-post-stream
-    // component. This change should probably be made in core, but keeping it here for now.
-    @observes("posts")
-    _postsChanged() {
-      this._refresh();
-    },
-
-    // When refresh is called, the posts on screen might be different, and they might even belong
-    // to a different topic. Therefore we need to trigger _scrollTriggered to make sure the screen-track
-    // service is updated about the change.
-    _refresh(args) {
-      this._super(args);
-      this._scrollTriggered();
-    },
-  });
 
   api.modifyClass("component:topic-list-item", {
     pluginId: PLUGIN_ID,
