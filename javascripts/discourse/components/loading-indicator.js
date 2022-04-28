@@ -19,7 +19,7 @@ export default Component.extend({
   stillLoading: equal("state", "still-loading"),
   done: equal("state", "done"),
   
-  @discourseComputed("router.currentRouteName", "router.currentURL")
+  @discourseComputed("loadingIndicator.currentRouteName", "loadingIndicator.currentURL")
   showHere(currentRouteName, currentURL) {
     if (settings.show_on === "all") {
       return true;
