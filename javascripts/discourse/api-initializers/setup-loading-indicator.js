@@ -5,32 +5,34 @@ import { observes } from "discourse-common/utils/decorators";
 import DiscourseURL from "discourse/lib/url";
 import { set } from "@ember/object";
 import Site from "discourse/models/site";
+import { inject as service } from "@ember/service";
+import discourseComputed from "discourse-common/utils/decorators";
+import { defaultHomepage } from "discourse/lib/utilities";
 
 const PLUGIN_ID = 'discourse-loading-slider';
 
 export default apiInitializer("0.8", (api) => {
+  router: service(),
   
   if (Site.currentProp("mobileView")) {
     return;
   }
   
-  const path = window.location.pathname;
-  
-  let showOnHomepage;
-  if (settings.display_on_homepage) {
-    showOnHomepage = path === "/";
-  }
+  @discourseComputed("router.currentRouteName", "router.currentURL")
+  showHere(currentRouteName, currentURL) {
+    if (settings.show_on === "all") {
+      return true;
+    }
 
-  let urlMatch;
-  if (settings.url_must_contain.length) {
-    const allowedPaths = settings.url_must_contain.split("|");
-    urlMatch = allowedPaths.some((allowedPath) => {
-      if (allowedPath.slice(-1) === "*") {
-        return path.indexOf(allowedPath.slice(0, -1)) === 0;
-      }
-      return path === allowedPath;
-    });
-  }
+    if (settings.show_on === "discovery") {
+      return currentRouteName.indexOf("discovery") > -1;
+    }
+
+    if (settings.show_on === "homepage") {
+      return currentRouteName == `discovery.${defaultHomepage()}`;
+    }
+  },
+  
   
   delete Ember.TEMPLATES["loading"];
   const { isAppWebview } = api.container.lookup("capabilities:main");
