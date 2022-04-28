@@ -13,10 +13,12 @@ export default apiInitializer("0.8", (api) => {
   if (Site.currentProp("mobileView")) {
     return;
   }
-
-  if (url === "/" || url === homeRoute ) { 
-    return;
-  }
+  
+  api.onPageChange((url) => {
+    if (url === "/" || url === homeRoute ) { 
+      return true;
+    }
+  });
   
   
   delete Ember.TEMPLATES["loading"];
