@@ -12,20 +12,7 @@ export default apiInitializer("0.8", (api) => {
   
   if (Site.currentProp("mobileView")) {
     return;
-  }
-  setupComponent(args, component) {
-    const topMenuRoutes = 
-        component.siteSettings.top_menu.split('|')
-        .map(function(route) {return '/' + route});
-    const homeRoute = topMenuRoutes[0];
-    api.onPageChange((url) => {
-      if (url === "/" || url === homeRoute ) { 
-        return true;
-      }
-    });
-  };
-    
-  
+  } 
   
   delete Ember.TEMPLATES["loading"];
   const { isAppWebview } = api.container.lookup("capabilities:main");
