@@ -5,6 +5,9 @@ import { observes } from "discourse-common/utils/decorators";
 import DiscourseURL from "discourse/lib/url";
 import { set } from "@ember/object";
 import Site from "discourse/models/site";
+import { computed } from "@ember/object";
+import discourseComputed from "discourse-common/utils/decorators";
+import { defaultHomepage } from "discourse/lib/utilities";
 
 const PLUGIN_ID = 'discourse-loading-slider';
 
@@ -12,7 +15,22 @@ export default apiInitializer("0.8", (api) => {
   
   if (Site.currentProp("mobileView")) {
     return;
-  } 
+  }
+  
+  @discourseComputed("router.currentRouteName", "router.currentURL")
+  showHere(currentRouteName, currentURL) {
+    if (settings.show_on === "all") {
+      return true;
+    }
+
+    if (settings.show_on === "discovery") {
+      return currentRouteName.indexOf("discovery") > -1;
+    }
+
+    if (settings.show_on === "homepage") {
+      return currentRouteName == `discovery.${defaultHomepage()}`;
+    }
+  },
   
   delete Ember.TEMPLATES["loading"];
   const { isAppWebview } = api.container.lookup("capabilities:main");
