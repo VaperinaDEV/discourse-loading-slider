@@ -1,8 +1,0 @@
-show_on:
-  default: discovery
-  type: enum
-  choices:
-    - discovery
-    - homepage
-    - all
-  description: discovery refers to topic list pages
