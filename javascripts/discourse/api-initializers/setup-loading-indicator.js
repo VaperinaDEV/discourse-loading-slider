@@ -69,14 +69,6 @@ export default apiInitializer("0.8", (api) => {
     },
   });
 
-  api.modifyClass("controller:discovery", {
-    pluginId: PLUGIN_ID,
-
-    set loading(value) {
-      // no-op. We don't want the loading spinner to show on the discovery routes any more
-    },
-  });
-
   if (isAppWebview) {
     document.body.classList.add("discourse-hub-webview");
   }
